@@ -10,6 +10,22 @@ function parseDates(forecastParam) {
     .map((d) => moment(d, 'YYYYMMDDhhmm').format('DD MMM HH:mm'))
 }
 
+function parseTemperatureValues(forecastParam) {
+  const entries = { ...forecastParam }
+  delete entries.description
+  return Object.values(entries)
+    .filter((d) => d !== 'description')
+    .map((t) => parseFloat(t['C']))
+}
+
+function parseHumidityValues(forecastParam) {
+  const entries = { ...forecastParam }
+  delete entries.description
+  return Object.values(entries)
+    .filter((d) => d !== 'description')
+    .map((hu) => parseFloat(hu['%']))
+}
+
 function getWeatherCode(areaForecastData, dateTimeEntry) {
   return areaForecastData.params.ww?.[dateTimeEntry]?.code
 }
@@ -18,8 +34,7 @@ function getWeatherDescription(forecastConfig, weatherCode) {
   return forecastConfig.substitutes.ww?.[weatherCode]
 }
 
-//TODO display weather icons corresponding to weather description, but where to find them?
-
+//TODO display weather icons corresponding to weather description, but where to find these icons?
 export default function WeatherForecastChart({ forecastData, config }) {
   const options = {
     chart: {
@@ -78,7 +93,7 @@ export default function WeatherForecastChart({ forecastData, config }) {
       {
         type: 'column',
         name: 'Humidity',
-        data: Object.values(forecastData.params.hu).map((hu) => parseFloat(hu['%'])),
+        data: parseHumidityValues(forecastData.params.hu),
         tooltip: {
           valueSuffix: '%'
         },
@@ -87,7 +102,7 @@ export default function WeatherForecastChart({ forecastData, config }) {
       {
         type: 'spline',
         name: 'Temperature',
-        data: Object.values(forecastData.params.t).map((t) => parseFloat(t['C'])),
+        data: parseTemperatureValues(forecastData.params.t),
         tooltip: {
           valueSuffix: '°C'
         }
