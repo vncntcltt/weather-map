@@ -11,45 +11,36 @@ import Point from 'ol/geom/Point'
 import { defaults as defaultControls } from 'ol/control'
 import ScaleLine from 'ol/control/ScaleLine'
 import { fromLonLat } from 'ol/proj'
-import { Fill, Stroke, Circle, Style } from 'ol/style'
+import { Style, Icon } from 'ol/style'
 import 'ol/ol.css'
 
+// eslint-disable-next-line no-undef
+const IMG_BASE_PATH = process.env.PUBLIC_URL + '/img'
+
 const defaultCityStyle = new Style({
-  image: new Circle({
-    fill: new Fill({
-      color: 'rgba(255,255,255,0.3)'
-    }),
-    stroke: new Stroke({
-      color: 'blue',
-      width: 2
-    }),
-    radius: 5
+  image: new Icon({
+    anchor: [0.5, 39],
+    anchorXUnits: 'fraction',
+    anchorYUnits: 'pixels',
+    src: IMG_BASE_PATH + '/marker-icon-blue.png'
   })
 })
 
 const selectedCityStyle = new Style({
-  image: new Circle({
-    fill: new Fill({
-      color: 'rgba(255,255,255,0.3)'
-    }),
-    stroke: new Stroke({
-      color: 'red',
-      width: 2
-    }),
-    radius: 5
+  image: new Icon({
+    anchor: [0.5, 39],
+    anchorXUnits: 'fraction',
+    anchorYUnits: 'pixels',
+    src: IMG_BASE_PATH + '/marker-icon-red.png'
   })
 })
 
 const highlightedCityStyle = new Style({
-  image: new Circle({
-    fill: new Fill({
-      color: 'rgba(255,255,255,0.3)'
-    }),
-    stroke: new Stroke({
-      color: 'orange',
-      width: 2
-    }),
-    radius: 5
+  image: new Icon({
+    anchor: [0.5, 39],
+    anchorXUnits: 'fraction',
+    anchorYUnits: 'pixels',
+    src: IMG_BASE_PATH + '/marker-icon-gold.png'
   })
 })
 

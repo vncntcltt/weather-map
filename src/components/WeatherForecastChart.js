@@ -41,7 +41,7 @@ export default function WeatherForecastChart({ forecastData, config }) {
       zoomType: 'xy'
     },
     title: {
-      text: `Weather forecast for ${forecastData.areainfo.forecast_area.name} (next 3 days)`
+      text: `Weather forecast for ${forecastData.areainfo.forecast_area.name}`
     },
     subtitle: {
       text: 'Source: MFI'
