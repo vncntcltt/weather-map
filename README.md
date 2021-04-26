@@ -5,12 +5,14 @@ The objective is to retrieve data from a weather API and display cities from Nep
 ## Notes
 
 I selected React as a frontend lib and HighCharts as the chart lib as these were the recommended options.
+
 I implemented the map using OpenLayers (instead of the more common Leaflet) because I wanted to improve my knowledge of this library.
 
 I experienced CORS issues using the provided API (the preflight request requires credentials but the CORS header ‘Access-Control-Allow-Origin’ is ‘\*’ : see https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors/CORSNotSupportingCredentials).
+
 So I opted to download the necessary data as JSON files and to fetch them from the public/data folder.
 
-## Running the app
+## Running the app
 
 Using Docker: `docker-compose up`
 The app should be available on http://localhost:3003
