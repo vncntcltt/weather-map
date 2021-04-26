@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  sample:
+    container_name: weathermap-prod
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3003:80
