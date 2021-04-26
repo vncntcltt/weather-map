@@ -35,20 +35,10 @@ const selectedCityStyle = new Style({
   })
 })
 
-const highlightedCityStyle = new Style({
-  image: new Icon({
-    anchor: [0.5, 39],
-    anchorXUnits: 'fraction',
-    anchorYUnits: 'pixels',
-    src: IMG_BASE_PATH + '/marker-icon-gold.png'
-  })
-})
-
 export default function WeatherMap({ cities, onSelectCity }) {
   const mapRef = useRef()
   const [map, setMap] = useState(null)
   const [selectedFeature, setSelectedFeature] = useState(null)
-  const [highlightedFeatures, setHighlightedFeatures] = useState([])
 
   // add map with OSM layer
   useEffect(() => {
@@ -139,38 +129,6 @@ export default function WeatherMap({ cities, onSelectCity }) {
       map.un('click', onMapClick)
     }
   }, [map, selectedFeature, onSelectCity])
-
-  // handle city highlighting
-  useEffect(() => {
-    if (!map) {
-      return
-    }
-
-    const onMapPointerMove = (e) => {
-      highlightedFeatures.forEach((feature) => {
-        if (feature !== selectedFeature) {
-          feature.setStyle(defaultCityStyle)
-        }
-      })
-      const features = map.getFeaturesAtPixel(e.pixel, (layer) => {
-        return layer.get('name') === 'cities'
-      })
-
-      features.forEach((feature) => {
-        if (feature !== selectedFeature) {
-          feature.setStyle(highlightedCityStyle)
-        }
-      })
-      setHighlightedFeatures(features)
-    }
-
-    map.on('pointermove', onMapPointerMove)
-
-    return () => {
-      // cleanup effect: remove event handler
-      map.un('pointermove', onMapPointerMove)
-    }
-  }, [map, highlightedFeatures, selectedFeature])
 
   return <div id="map" ref={mapRef} style={{ height: '350px', width: '100%' }} />
 }
